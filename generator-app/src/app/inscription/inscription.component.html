@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Nouvelle inscription</h2>
+
+  <form [formGroup]="inscriptionForm" (ngSubmit)="submit()">
+    <label>Prénom :</label>
+    <input formControlName="lastName" />
+
+    <label>Nom :</label>
+    <input formControlName="firstName" />
+
+    <label>Date de naissance :</label>
+    <input type="date" formControlName="birthDate" />
+
+    <label>Modèle de numérotation :</label>
+    <select formControlName="configid">
+      <option *ngFor="let config of configurations" >
+        {{config}}
+      </option>
+    </select>
+
+    <button type="submit">🧾 Générer numéro</button>
+  </form>
+
+  <div *ngIf="generatedNumber" class="result">
+    <p>Numéro généré : <strong>{{ generatedNumber }}</strong></p>
+  </div>
+</div>

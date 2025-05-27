@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="title-bar">
+    <h2 class="form-title">Créer un modèle de numérotation</h2>
+    <button class="btn btn-success" [routerLink]="'/inscription'">Inscrit</button>
+  </div>
+
+
+<form [formGroup]="configForm"  class="config-form">
+
+  <div class="form-group">
+    <label for="configid">ID du modèle :</label>
+    <input id="configid" formControlName="configid" placeholder="ex: configEx2" required />
+  </div>
+
+  <div formArrayName="rules">
+    <div *ngFor="let rule of rules.controls; let i = index" [formGroupName]="i" class="rule-card">
+
+      <div class="rule-header">
+        <h4>Règle {{ i + 1 }}</h4>
+        <button type="button" (click)="removeRule(i)" class="btn btn-danger btn-sm">❌ Supprimer</button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Champ :</label>
+          <select formControlName="field">
+            <option value="FIRSTNAME">Prénom</option>
+            <option value="LASTNAME">Nom</option>
+            <option value="BIRTHDATE">Date de naissance</option>
+            <option value="COUNTER">Compteur</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Longueur :</label>
+          <input type="number" formControlName="length" />
+        </div>
+
+        <div class="form-group">
+          <label>Préfixe :</label>
+          <input formControlName="prefix" />
+        </div>
+
+        <div class="form-group">
+          <label>Suffixe :</label>
+          <input formControlName="suffix" />
+        </div>
+
+        <div class="form-group" *ngIf="rule.get('field')?.value === 'BIRTHDATE'">
+          <label>Format date :</label>
+          <input formControlName="dateFormat" placeholder="ex: yyyy" />
+        </div>
+
+        <div class="form-group" *ngIf="rule.get('field')?.value === 'COUNTER'">
+          <label>Valeur initiale (compteur) :</label>
+          <input type="number" formControlName="valeurInitiale" />
+        </div>
+
+        <div class="form-group">
+          <label>Ordre :</label>
+          <input type="number" formControlName="orderIndex" required />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" (click)="addRule()" class="btn btn-outline-primary">➕ Ajouter une règle</button>
+    <button type="submit"(click)="save()" class="btn btn-primary"> Sauvegarder le modèle</button>
+  </div>
+</form>
+</div>

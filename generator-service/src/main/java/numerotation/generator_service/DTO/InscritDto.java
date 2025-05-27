@@ -1,0 +1,26 @@
+package numerotation.generator_service.DTO;
+
+
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+import java.time.LocalDate;
+@Data
+public class InscritDto {
+    private Long id;
+
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    @NotNull
+    private LocalDate birthDate;
+    private String configid;
+
+ /*   @NotNull
+    @Min(0)
+    private Integer counter;*/
+
+}
